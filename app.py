@@ -7,7 +7,7 @@ app = Flask(__name__)
 
 @app.route('/')
 def hello():
-    return 'Hello, World!'
+    return "Hello from Topic & Skill Service!"
 
 @app.route('/topics')
 def get_topics():
