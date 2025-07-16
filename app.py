@@ -9,7 +9,7 @@ app = Flask(__name__)
 def hello():
     return "Hello from Topic & Skill Service!"
 
-@app.route('/topics', method='GET')
+@app.route('/topics')
 def get_topics():
     data_path = os.path.join(os.path.dirname(__file__), 'data', 'topics.json')
     
