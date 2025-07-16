@@ -12,6 +12,7 @@ def hello():
 @app.route('/topics', method='GET')
 def get_topics():
     data_path = os.path.join(os.path.dirname(__file__), 'data', 'topics.json')
+    
     try:
         with open(data_path, 'r') as f:
             topics = json.load(f)
