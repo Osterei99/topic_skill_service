@@ -22,10 +22,7 @@ def get_topics():
     except Exception as e:
         print(f"Ein unbekannter Fehler ist aufgetreten: {e}")
         return []
-@app.route('/topics', method='GET')
-def get_topics():
-    topics = read_json_file(TOPICS_FILE)
-    return jsonify(topics)
+
 
 if __name__ == '__main__':
     app.run(debug=True,port=5000)
