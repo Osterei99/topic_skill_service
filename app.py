@@ -1,28 +1,38 @@
-from flask import Flask, jsonify
 import json
 import os
+from flask import Flask, jsonify
+
 
 app = Flask(__name__)
 
+DATA_DIR = os.path.join(os.path.dirname(__file__), 'data')
+TOPICS_FILE = os.path.join(DATA_DIR, 'topics.json')
+
 
 @app.route('/')
-def hello():
-    return "Hello from Topic & Skill Service!"
+def hello_world():
+    return 'Hello from Topic and Skill Service!'
 
-@app.route('/topics')
-def get_topics():
-    data_path = os.path.join(os.path.dirname(__file__), 'data', 'topics.json')
+
+def read_json_file(filepath):
+    if not os.path.exists(filepath):
+        return []
+    
     try:
-        with open(data_path, 'r') as f:
-            topics = json.load(f)
-        return jsonify(topics)
+        with open(filepath, 'r', encoding='utf-8') as file:
+            return json.load(file)
     except json.JSONDecodeError:
-        print(f"Fehler beim Dekodieren der JSON-Datei: {data_path}. Bitte JSON-Syntax überprüfen!")
+        print(f"Fehler beim Dekodieren der JSON-Datei: {filepath}. Bitte JSON-Syntax überprüfen!")
         return []
     except Exception as e:
-        print(f"Ein unbekannter Fehler ist aufgetreten: {e}")
+        print(f"Ein unerwarteter Fehler ist aufgetreten beim Lesen von {filepath}: {e}")
         return []
 
 
+@app.route('/topics', method='GET')
+def get_topics():
+    topics = read_json_file(TOPICS_FILE)
+    return jsonify(topics)
+
 if __name__ == '__main__':
-    app.run(debug=True,port=5000)
+    app.run(debug=True, port=5000)
