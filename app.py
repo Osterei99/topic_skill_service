@@ -16,7 +16,7 @@ def get_topics():
         with open(data_path, 'r') as f:
             topics = json.load(f)
         return jsonify(topics)
-    except json.JSONDecodeError
+    except json.JSONDecodeError:
         print(f"Fehler beim Dekodieren der JSON-Datei: {data_path}. Bitte JSON-Syntax überprüfen!")
         return []
     except Exception as e:
